@@ -4,8 +4,11 @@ import React from "react";
 import LoginScreen from "./app/screens/login";
 import RegisterScreen from "./app/screens/registerScreen";
 
-export default function App() {
-  return <LoginScreen />;
+export default class App extends React.Component {
+  render() {
+    return <RegisterScreen></RegisterScreen>;
+    // return <LoginScreen />;
+  }
 }
 
 // const styles = StyleSheet.create({

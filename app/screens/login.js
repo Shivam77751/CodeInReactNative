@@ -1,41 +1,58 @@
 import React from "react";
-import { Button, StyleSheet, TextInput, View, Text, Image } from "react-native";
+import { StyleSheet, TextInput, View, Text } from "react-native";
 
 export default class LoginScreen extends React.Component {
+  constructor(props) {
+    super();
+    this.state = { email: null, password: null };
+  }
+  loginFunc() {
+    const { email, password } = this.state;
+    console.log("login click", `${email},${password}`);
+  }
+
+  signupFunc() {
+    console.log("signup click");
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Image
-          style={styles.logo}
-          source={require("../assets/loginlogo.jpg")}
-        ></Image>
+        <View>
+          <Text style={styles.mainHeading}>Login Screen</Text>
+        </View>
         <View>
           <Text style={styles.heading}>User Email:</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your email"
+            placeholder={"Enter your email"}
+            value={this.state.email}
+            onChangeText={(value) => this.setState({ email: value })}
           ></TextInput>
         </View>
-        <View style={{ height: 90 }}>
+        <View>
           <Text style={styles.heading}>Password:</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your password"
+            placeholder={"Enter your password"}
+            onChangeText={(value) => this.setState({ password: value })}
+            value={this.state.password}
+            secureTextEntry={true}
           ></TextInput>
         </View>
         <View>
-          <Button
-            title="Login"
+          <View
             style={styles.loginButton}
-            onPress={() => alert("Clicked")}
-          ></Button>
-        </View>
-        <View>
-          <Button
+            onStartShouldSetResponder={this.loginFunc.bind(this)}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </View>
+          <View
             title="Signup"
             style={styles.signupButton}
-            onPress={() => alert("Clicked Signup")}
-          ></Button>
+            onStartShouldSetResponder={this.signupFunc.bind(this)}
+          >
+            <Text style={styles.buttonText}>Signup</Text>
+          </View>
         </View>
       </View>
     );
@@ -62,23 +79,41 @@ const styles = StyleSheet.create({
     fontSize: 20,
     width: "100%",
   },
+  mainHeading: {
+    color: "white",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: 25,
+    width: "100%",
+    marginBottom: 10,
+    left: 120,
+  },
   input: {
     width: "95%",
     height: 50,
     left: 10,
     fontSize: 15,
     fontWeight: "normal",
-    // borderWidth: 1,
   },
   loginButton: {
-    fontSize: 15,
-    height: 50,
-    color: "blue",
-  },
-  signupButton: {
-    fontSize: 15,
     height: 50,
     marginTop: 20,
-    color: "red",
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "blue",
+  },
+  signupButton: {
+    height: 50,
+    marginTop: 20,
+    backgroundColor: "red",
+    alignItems: "center",
+    width: "100%",
+  },
+  buttonText: {
+    alignItems: "center",
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#fff",
+    marginTop: 2,
   },
 });

@@ -1,16 +1,38 @@
 import React from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default class RegisterScreen extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      name: null,
+      email: null,
+      mobile: null,
+      password: null,
+      confirmPassword: null,
+    };
+  }
+
+  signupFunc() {
+    console.log("User Detail--->", this.state);
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text style={styles.heading}>Registeration :</Text>
         <View>
           <Text style={styles.label}>Name :</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your name"
+            onChangeText={(value) => this.setState({ name: value })}
             type="text"
           ></TextInput>
         </View>
@@ -19,6 +41,7 @@ export default class RegisterScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Enter your email"
+            onChangeText={(value) => this.setState({ email: value })}
             type="text"
           ></TextInput>
         </View>
@@ -27,7 +50,8 @@ export default class RegisterScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Enter your mobile number"
-            type="text"
+            onChangeText={(value) => this.setState({ mobile: value })}
+            type="number"
           ></TextInput>
         </View>
         <View>
@@ -35,7 +59,9 @@ export default class RegisterScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Enter your password"
+            onChangeText={(value) => this.setState({ password: value })}
             type="password"
+            secureTextEntry={true}
           ></TextInput>
         </View>
         <View>
@@ -43,18 +69,15 @@ export default class RegisterScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Re-enter your password"
+            onChangeText={(value) => this.setState({ confirmPassword: value })}
             type="password"
+            secureTextEntry={true}
           ></TextInput>
         </View>
         <View>
-          <Button
-            title="Signup"
-            onPress={() => {
-              Alert.alert("Signup Successful");
-            }}
-          ></Button>
+          <Button title="Signup" onPress={this.signupFunc.bind(this)}></Button>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -64,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     left: 10,
+    top: 20,
     justifyContent: "flex-start",
   },
   heading: {
