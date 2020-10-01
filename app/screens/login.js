@@ -6,20 +6,20 @@ export default class LoginScreen extends React.Component {
     super();
     this.state = { email: null, password: null };
   }
+
   loginFunc() {
     const { email, password } = this.state;
+    this.props.navigation.navigate("Tab");
     console.log("login click", `${email},${password}`);
   }
 
   signupFunc() {
+    this.props.navigation.navigate("Register", { data: "Welcome here," });
     console.log("signup click");
   }
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.mainHeading}>Login Screen</Text>
-        </View>
         <View>
           <Text style={styles.heading}>User Email:</Text>
           <TextInput
@@ -78,15 +78,6 @@ const styles = StyleSheet.create({
     left: 10,
     fontSize: 20,
     width: "100%",
-  },
-  mainHeading: {
-    color: "white",
-    fontStyle: "normal",
-    fontWeight: "bold",
-    fontSize: 25,
-    width: "100%",
-    marginBottom: 10,
-    left: 120,
   },
   input: {
     width: "95%",

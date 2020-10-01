@@ -11,6 +11,7 @@ import {
 export default class RegisterScreen extends React.Component {
   constructor(props) {
     super();
+    this.storeDetail = this.storeDetail.bind(this);
     this.state = {
       name: null,
       email: null,
@@ -20,19 +21,33 @@ export default class RegisterScreen extends React.Component {
     };
   }
 
+  storeDetail(value, key) {
+    let pattern;
+    if (key == "email") {
+      pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (pattern.test(value)) {
+        this.setState({ email: value });
+      } else {
+        console.log("Invalid Email");
+      }
+    }
+  }
+
   signupFunc() {
+    this.props.navigation.navigate("Login");
     console.log("User Detail--->", this.state);
   }
   render() {
+    const { data } = this.props.route.params;
     return (
       <SafeAreaView style={styles.container}>
-        <Text style={styles.heading}>Registeration :</Text>
+        <Text>{data}</Text>
         <View>
           <Text style={styles.label}>Name :</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your name"
-            onChangeText={(value) => this.setState({ name: value })}
+            onChangeText={(value) => this.storeDetail(value, "name")}
             type="text"
           ></TextInput>
         </View>
@@ -41,7 +56,7 @@ export default class RegisterScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="Enter your email"
-            onChangeText={(value) => this.setState({ email: value })}
+            onChangeText={(value) => this.storeDetail(value, "email")}
             type="text"
           ></TextInput>
         </View>
